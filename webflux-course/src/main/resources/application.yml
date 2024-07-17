@@ -3,4 +3,4 @@ spring:
     name: webflux-course
   data:
     mongodb:
-      uri: mongodb+srv://admin:<password>@webfluxcoursecluster.wzedsqr.mongodb.net/webflux-course?retryWrites=true&w=majority&appName=WebfluxCourseCluster
+      uri: mongodb+srv://${DB_USER:admin}:${DB_PASSWORD}@webfluxcoursecluster.wzedsqr.mongodb.net/${DB_NAME:webflux-course}?retryWrites=true&w=majority&appName=WebfluxCourseCluster
