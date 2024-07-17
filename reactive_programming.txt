@@ -1,0 +1,25 @@
+Reactive Programming
+
+A programacao reativa eh um paradigma de programacao
+que promove uma abordagem assincrona, sem bloqueio
+e orientada a eventos para o processamento de dados.
+A programacao reativa envolve modelar dados e eventos
+como fluxos de dados observaveis e implementar rotinas
+de processamento de dados para reagir as mudancas nesses
+fluxos.
+Antes de nos aprofundarmos no mundo reativo, vamos entender
+a diferenca entre processamento de solicitacao com bloqueio
+e sem bloqueio
+
+
+Processamento de Solicitacao Bloqueante
+
+Ao solicitar uma requisicao para outro sistema o processamento
+aguarda o retorno da solicitacao.
+
+Processamento de Solicitacao Nao Bloqueante
+
+Ao solicitar uma requisicao, essa requisicao entra em uma fila
+e o event loop envia a requisicao para o outro sistema, mas
+o processamento nao fica aguardando o retorno, continua no
+processando outras requisicoes.
