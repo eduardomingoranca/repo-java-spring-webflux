@@ -1,5 +1,7 @@
 package br.com.caesar.webfluxcourse.controller;
 
+import br.com.caesar.webfluxcourse.model.request.UserRequest;
+import br.com.caesar.webfluxcourse.model.request.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
