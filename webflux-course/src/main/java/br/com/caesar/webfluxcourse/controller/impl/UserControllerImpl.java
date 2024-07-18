@@ -1,6 +1,7 @@
 package br.com.caesar.webfluxcourse.controller.impl;
 
 import br.com.caesar.webfluxcourse.controller.UserController;
+import br.com.caesar.webfluxcourse.mapper.UserMapper;
 import br.com.caesar.webfluxcourse.model.request.UserRequest;
 import br.com.caesar.webfluxcourse.model.request.UserResponse;
 import br.com.caesar.webfluxcourse.service.UserService;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
@@ -20,6 +22,7 @@ import static org.springframework.http.ResponseEntity.status;
 public class UserControllerImpl implements UserController {
 
     private final UserService service;
+    private final UserMapper mapper;
 
     @Override
     public ResponseEntity<Mono<Void>> save(final UserRequest request) {
@@ -27,8 +30,8 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<Mono<UserResponse>> find(String id) {
-        return null;
+    public ResponseEntity<Mono<UserResponse>> findById(String id) {
+        return ok().body(service.findById(id).map(mapper::toResponse));
     }
 
     @Override
