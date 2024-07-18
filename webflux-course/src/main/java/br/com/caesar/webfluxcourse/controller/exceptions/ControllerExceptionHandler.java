@@ -1,6 +1,7 @@
 package br.com.caesar.webfluxcourse.controller.exceptions;
 
 
+import br.com.caesar.webfluxcourse.service.exception.ObjectNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
 import static reactor.core.publisher.Mono.just;
@@ -47,6 +49,20 @@ public class ControllerExceptionHandler {
             error.addError(x.getField(), x.getDefaultMessage());
         }
         return status(BAD_REQUEST).body(just(error));
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<Mono<StandardError>> objectNotFoundException(
+            ObjectNotFoundException ex, ServerHttpRequest request
+    ) {
+        return status(NOT_FOUND)
+                .body(just(StandardError.builder()
+                        .timestamp(now())
+                        .status(NOT_FOUND.value())
+                        .error(NOT_FOUND.getReasonPhrase())
+                        .message(ex.getMessage())
+                        .path(request.getPath().toString())
+                        .build()));
     }
 
     private String verifyDupKey(String message) {
