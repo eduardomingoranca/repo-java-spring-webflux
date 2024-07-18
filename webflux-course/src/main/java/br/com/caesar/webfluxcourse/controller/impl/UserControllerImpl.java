@@ -26,17 +26,20 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<Mono<Void>> save(final UserRequest request) {
-        return status(CREATED).body(service.save(request).then());
+        Mono<Void> then = service.save(request).then();
+        return status(CREATED).body(then);
     }
 
     @Override
     public ResponseEntity<Mono<UserResponse>> findById(String id) {
-        return ok().body(service.findById(id).map(mapper::toResponse));
+        Mono<UserResponse> map = service.findById(id).map(mapper::toResponse);
+        return ok().body(map);
     }
 
     @Override
     public ResponseEntity<Flux<UserResponse>> findAll() {
-        return null;
+        Flux<UserResponse> map = service.findAll().map(mapper::toResponse);
+        return ok().body(map);
     }
 
     @Override

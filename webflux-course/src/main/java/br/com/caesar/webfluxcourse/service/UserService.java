@@ -7,6 +7,7 @@ import br.com.caesar.webfluxcourse.repository.UserRepository;
 import br.com.caesar.webfluxcourse.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static java.lang.String.format;
@@ -21,7 +22,8 @@ public class UserService {
 
     // final => os atributos da classe nao podem ser modificados dentro do metodo
     public Mono<User> save(final UserRequest request) {
-        return repository.save(mapper.toEntity(request));
+        User entity = mapper.toEntity(request);
+        return repository.save(entity);
     }
 
     public Mono<User> findById(final String id) {
@@ -31,6 +33,10 @@ public class UserService {
 
         return repository.findById(id)
                 .switchIfEmpty(error(exception));
+    }
+
+    public Flux<User> findAll() {
+        return repository.findAll();
     }
 
 }
